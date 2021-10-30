@@ -1,0 +1,14 @@
+{
+  "name": "scrape",
+  "version": "1.0.0",
+  "description": "demo scraping dynamic data",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^10.4.0"
+  }
+}
