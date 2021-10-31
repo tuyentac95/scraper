@@ -35,7 +35,6 @@ const scrapeStocks = async () => {
     return arr
   })
 
-  console.log(stocks)
   await browser.close()
   return stocks
 };
