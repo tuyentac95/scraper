@@ -14,7 +14,10 @@ const delay = ms => new Promise(res => {
 });
 
 const scrapeStocks = async () => {
-  const browser = await puppeteer.launch({headless: false});
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
 
   const page = await browser.newPage();
   await page.goto('https://liveboard.cafef.vn/');
