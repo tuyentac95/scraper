@@ -1,3 +1,11 @@
+'use strict'
+module.exports = {
+  scrape: async () => {
+    console.log('[INFO] Start scraping funds...')
+    return await scrapeFunds();
+  }
+}
+
 const puppeteer = require('puppeteer');
 
 const delay = ms => new Promise(res => {
@@ -5,7 +13,7 @@ const delay = ms => new Promise(res => {
   setTimeout(res, ms)
 });
 
-(async function scrape() {
+const scrapeFunds = async () => {
   const browser = await puppeteer.launch({headless: false});
 
   const page = await browser.newPage();
@@ -17,7 +25,7 @@ const delay = ms => new Promise(res => {
     let arr = []
     elements.forEach(e => {
       arr = [...arr, {
-        code: e.querySelector('.font-bold.wrap-text').textContent,
+        id: e.querySelector('.font-bold.wrap-text').textContent,
         issuer: e.querySelector('.issuer-row').textContent,
         type: e.querySelectorAll('.mobile-col')[0].textContent,
         nav: e.querySelectorAll('.mobile-col')[1].textContent.replace(',', ''),
@@ -26,6 +34,6 @@ const delay = ms => new Promise(res => {
     return arr
   })
 
-  console.log(funds)
   await browser.close()
-})();
+  return funds;
+};
