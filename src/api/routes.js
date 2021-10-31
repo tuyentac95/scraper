@@ -7,4 +7,7 @@ module.exports = function (app) {
 
   app.route('/scrape/stocks/')
     .get(controller.scrapeStock)
+
+  app.route('/scrape/funds/')
+    .get(controller.scrapeFund)
 }
