@@ -5,6 +5,6 @@ module.exports = function (app) {
   app.route('/')
     .get(controller.welcome)
 
-  app.route('/stocks/:code')
-    .get(controller.fetchStock)
+  app.route('/scrape/stocks/')
+    .get(controller.scrapeStock)
 }

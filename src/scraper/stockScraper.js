@@ -1,3 +1,11 @@
+'use strict'
+module.exports = {
+  scrape: async () => {
+    console.log('[INFO] Start scraping...')
+    return await scrapeStocks();
+  }
+}
+
 const puppeteer = require('puppeteer');
 
 const delay = ms => new Promise(res => {
@@ -5,17 +13,17 @@ const delay = ms => new Promise(res => {
   setTimeout(res, ms)
 });
 
-(async function scrape() {
+const scrapeStocks = async () => {
   const browser = await puppeteer.launch({headless: false});
 
   const page = await browser.newPage();
   await page.goto('https://liveboard.cafef.vn/');
   await delay(6000)
 
-  let codes = await page.evaluate(() => {
-    let codesElement = document.body.querySelectorAll('.col_l')
+  let stocks = await page.evaluate(() => {
+    let elements = document.body.querySelectorAll('.col_l')
     let arr = []
-    codesElement.forEach(e => {
+    elements.forEach(e => {
       arr = [...arr, {
         id: e.id.replace('_l', ''),
         price: e.textContent
@@ -24,6 +32,7 @@ const delay = ms => new Promise(res => {
     return arr
   })
 
-  console.log(codes)
+  console.log(stocks)
   await browser.close()
-})();
+  return stocks
+};
