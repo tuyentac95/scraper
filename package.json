@@ -4,7 +4,7 @@
   "description": "demo scraping dynamic data",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "node server.js",
     "test": "node test.js"
   },
   "author": "",
@@ -16,5 +16,9 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
+  },
+  "engines": {
+    "node": "12.x",
+    "npm": "6.14.x"
   }
 }

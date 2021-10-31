@@ -6,7 +6,7 @@ let port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-let routes = require('./api/routes') //importing route
+let routes = require('./src/api/routes') //importing route
 routes(app)
 
 app.use(function(req, res) {
