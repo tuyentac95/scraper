@@ -11,10 +11,14 @@ module.exports = {
     try {
       let stockScraper = require('../scraper/stockScraper')
       let data = await stockScraper.scrape()
-      return res.json({code: 200, day, data});
+
+      let caller = require('../axios/apiCaller')
+      await caller.submitStocks(data, day.substr(0,10))
+
+      return res.json({status: 200, day, data});
     } catch (err) {
       console.log(err)
-      return res.json({code: 404, message: err.message})
+      return res.json({status: 404, message: err.message})
     }
   },
 
@@ -24,10 +28,10 @@ module.exports = {
     try {
       let fundScraper = require('../scraper/fundScraper')
       let data = await fundScraper.scrape()
-      return res.json({code: 200, day, data});
+      return res.json({status: 200, day, data});
     } catch (err) {
       console.log(err)
-      return res.json({code: 404, message: err.message})
+      return res.json({status: 404, message: err.message})
     }
   }
 }

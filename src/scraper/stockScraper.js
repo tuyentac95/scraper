@@ -28,7 +28,7 @@ const scrapeStocks = async () => {
     let arr = []
     elements.forEach(e => {
       arr = [...arr, {
-        id: e.id.replace('_l', ''),
+        code: e.id.replace('_l', ''),
         price: e.textContent
       }]
     })
