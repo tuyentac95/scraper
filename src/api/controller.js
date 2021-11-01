@@ -4,8 +4,22 @@ module.exports = {
     return res.json({ message: "Application already"})
   },
 
-  fetchStock(req, res) {
-    return res.json({ message: `Fetch price of ${req.params.code}`});
+  scrapeStock: async (req, res) => {
+    console.log('----------')
+    let day = (new Date()).toISOString()
+
+    try {
+      let stockScraper = require('../scraper/stockScraper')
+      let data = await stockScraper.scrape()
+
+      let caller = require('../axios/apiCaller')
+      await caller.submitStocks(data, day.substr(0,10))
+
+      return res.json({status: 200, day, data});
+    } catch (err) {
+      console.log(err)
+      return res.json({status: 404, message: err.message})
+    }
   },
 
   scrapeFund: async (req, res) => {
@@ -14,10 +28,10 @@ module.exports = {
     try {
       let fundScraper = require('../scraper/fundScraper')
       let data = await fundScraper.scrape()
-      return res.json({code: 200, day, data});
+      return res.json({status: 200, day, data});
     } catch (err) {
       console.log(err)
-      return res.json({code: 404, message: err.message})
+      return res.json({status: 404, message: err.message})
     }
   }
 }
