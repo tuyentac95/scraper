@@ -28,6 +28,10 @@ module.exports = {
     try {
       let fundScraper = require('../scraper/fundScraper')
       let data = await fundScraper.scrape()
+
+      let caller = require('../axios/apiCaller')
+      await caller.submitFunds(data, day.substr(0,10))
+
       return res.json({status: 200, day, data});
     } catch (err) {
       console.log(err)

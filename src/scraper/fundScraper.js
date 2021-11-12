@@ -14,7 +14,10 @@ const delay = ms => new Promise(res => {
 });
 
 const scrapeFunds = async () => {
-  const browser = await puppeteer.launch({headless: false});
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
 
   const page = await browser.newPage();
   await page.goto('https://fmarket.vn/san_pham');
@@ -25,9 +28,9 @@ const scrapeFunds = async () => {
     let arr = []
     elements.forEach(e => {
       arr = [...arr, {
-        id: e.querySelector('.font-bold.wrap-text').textContent,
+        code: e.querySelector('.font-bold.wrap-text').textContent,
         issuer: e.querySelector('.issuer-row').textContent,
-        type: e.querySelectorAll('.mobile-col')[0].textContent,
+        type: e.querySelectorAll('.mobile-col')[0].textContent.trim(),
         nav: e.querySelectorAll('.mobile-col')[1].textContent.replace(',', ''),
       }]
     })

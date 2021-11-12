@@ -9,5 +9,16 @@ module.exports = {
     }).catch(err => {
       console.error(err)
     })
+  },
+
+  submitFunds(funds, date) {
+    const axios = require('axios')
+    axios.post(`https://market-today.herokuapp.com/fund/${date}`, {
+      data: funds
+    }).then(res => {
+      console.log(res.status)
+    }).catch(err => {
+      console.error(err)
+    })
   }
 }
