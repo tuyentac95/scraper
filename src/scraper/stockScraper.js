@@ -1,8 +1,10 @@
 'use strict'
 module.exports = {
   scrape: async () => {
-    console.log('[INFO] Start scraping...')
-    return await scrapeStocks();
+    console.log('[INFO] Start scraping HOSE...')
+    let hose = await scrapeStocks('https://liveboard.cafef.vn/');
+    let hnx = await scrapeStocks('https://liveboard.cafef.vn/?center=2');
+    return [...hose, ...hnx]
   }
 }
 
@@ -13,14 +15,14 @@ const delay = ms => new Promise(res => {
   setTimeout(res, ms)
 });
 
-const scrapeStocks = async () => {
+const scrapeStocks = async (url) => {
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
   const page = await browser.newPage();
-  await page.goto('https://liveboard.cafef.vn/');
+  await page.goto(url);
   await delay(6000)
 
   let stocks = await page.evaluate(() => {
