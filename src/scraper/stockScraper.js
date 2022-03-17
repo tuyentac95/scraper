@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   scrape: async () => {
-    console.log('[INFO] Start scraping HOSE...')
+    console.log('[INFO] Start scraping...')
     return await scrapeStocks('https://liveboard.cafef.vn/')
   }
 }
@@ -38,7 +38,7 @@ const scrapeStocks = async (url) => {
   await delay(6000)
   let hose = await page.evaluate(scrapingPrice)
 
-  await page.click('#myTab :nth-child(4)')
+  await page.click('#myTab :nth-child(5)')
   await delay(6000)
   let hnx = await page.evaluate(scrapingPrice)
 
